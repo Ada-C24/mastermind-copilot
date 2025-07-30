@@ -44,6 +44,37 @@ def normalize_code(code):
 # Wave 2
 # Add your Wave 2 functions here
 
+def generate_hint(guess, code):
+    """
+    Returns a tuple:
+        (number of correct positions, number of correct colors in wrong positions)
+    Assumes guess and code are normalized lists of length 4.
+    """
+    correct_positions = correct_pos_and_color(guess, code)
+    total_correct_colors = color_count(guess, code)
+    color_only = total_correct_colors - correct_positions
+    return (correct_positions, color_only)
+
+
+def color_count(guess, code):
+    """
+    Returns the number of colors in guess that are correct, regardless of position.
+    Both guess and code are lists of length 4, containing valid color letters.
+    """
+    from collections import Counter
+    # Assume guess and code are already normalized (uppercase, valid colors)
+    intersection = Counter(guess) & Counter(code)
+    count = intersection.total()
+    return count
+
+
+def correct_pos_and_color(guess, code):
+    """
+    Returns the number of positions where guess and code match exactly.
+    Assumes guess and code are normalized lists of length 4.
+    """
+    return sum(g == c for g, c in zip(guess, code))
+
 
 # Wave 3
 # Add your Wave 3 functions here
