@@ -1,4 +1,4 @@
-from app.game import color_count, correct_pos_and_color, check_guess
+from app.game import color_count, correct_pos_and_color, generate_hint
 
 # --------------------------test color_count------------------------------------
 
@@ -18,6 +18,18 @@ def test_color_count_two_matching():
     # Arrange
     guess = ['R', 'O', 'G', 'B']
     code = ['R', 'O', 'P', 'P']
+
+    # Act
+    result = color_count(guess, code)
+
+    # Assert
+    assert result == 2
+
+
+def test_color_count_order_does_not_matter():
+    # Arrange
+    guess = ['R', 'O', 'G', 'B']
+    code = ['P', 'P', 'R', 'O']
 
     # Act
     result = color_count(guess, code)
@@ -120,38 +132,38 @@ def test_correct_pos_and_color_no_match_returns_zero():
     # Assert
     assert result == 0
 
-#--------------------test check_guess()-------------------------------------
+#--------------------test generate_hint()-------------------------------------
 
-def test_check_guess_matching_codes():
+def test_generate_hint_matching_codes():
     # Arrange
     guess = ['R', 'B', 'P', 'P']
     code = ['R', 'B', 'P', 'P']
     # Act
-    result = check_guess(guess, code)
+    result = generate_hint(guess, code)
 
     # Assert
     assert result == (4, 0)
 
 
-def test_check_guess_mixed_guess():
+def test_generate_hint_mixed_guess():
     # Arrange
     guess = ['R', 'B', 'O', 'P']
     code = ['R', 'Y', 'B', 'P']
 
     # Act
-    result = check_guess(guess, code)
+    result = generate_hint(guess, code)
 
     # Assert
     assert result == (2, 1)
 
 
-def test_check_guess_completely_incorrect():
+def test_generate_hint_completely_incorrect():
     # Arrange
     guess = ['P', 'P', 'P', 'P']
     code = ['R', 'R', 'R', 'R']
 
     # Act
-    result = check_guess(guess, code)
+    result = generate_hint(guess, code)
 
     # Assert
     assert result == (0, 0)
