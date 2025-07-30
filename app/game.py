@@ -77,4 +77,29 @@ def correct_pos_and_color(guess, code):
 
 
 # Wave 3
-# Add your Wave 3 functions here
+
+def get_win_percentage(wins, plays):
+    """
+    Returns the integer percentage (rounded down) of games won out of games played.
+    If no games have been played, returns 0.
+
+    Note: If wins exceeds plays, this function does not guard against it and will return a percentage greater than 100. Input validation should prevent this if undesired.
+    """
+    if plays == 0:
+        return 0
+    return (wins * 100) // plays
+
+MAX_GUESSES = 8
+
+def format_guess_stats(guess_stats):
+    """
+    Returns a list of MAX_GUESSES strings. Each string contains Xs representing the number of games won in n guesses (offset by one).
+    If no games were won for a guess count, the string is empty.
+    """
+    result = []
+    for position in range(MAX_GUESSES):
+        guess_count = position + 1  # guess_stats keys are 1-based
+        wins = guess_stats.get(guess_count, 0)
+        result.append('X' * wins if wins > 0 else '')
+    return result
+
